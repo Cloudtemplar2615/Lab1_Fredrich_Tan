@@ -24,3 +24,26 @@ struct ContentView: View {
         }
     }
 }
+VStack {
+    Text("\(number)")
+        .font(.largeTitle)
+        .padding()
+
+    HStack {
+        Button("Prime") {
+            // Logic to be added later
+        }
+        .padding()
+        .background(Color.blue)
+        .foregroundColor(.white)
+        .cornerRadius(10)
+
+        Button("Not Prime") {
+            // Logic to be added later
+        }
+        .padding()
+        .background(Color.red)
+        .foregroundColor(.white)
+        .cornerRadius(10)
+    }
+}
