@@ -58,6 +58,20 @@ func isPrimeNumber(_ n: Int) -> Bool {
 @State private var isCorrect: Bool? = nil
 
 func checkAnswer(isPrime: Bool) {
+    if isPrime == isPrimeNumber(number) {
+        correctAnswers += 1
+    } else {
+        wrongAnswers += 1
+    }
     isCorrect = (isPrime == isPrimeNumber(number))
 }
+
+if let correct = isCorrect {
+    Image(systemName: correct ? "checkmark.circle" : "xmark.circle")
+        .resizable()
+        .frame(width: 50, height: 50)
+        .foregroundColor(correct ? .green : .red)
+}
+@State private var correctAnswers: Int = 0
+@State private var wrongAnswers: Int = 0
 
