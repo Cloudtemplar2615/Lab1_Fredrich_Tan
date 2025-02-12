@@ -6,6 +6,8 @@ struct ContentView: View {
     @State private var correctAnswers: Int = 0
     @State private var wrongAnswers: Int = 0
     @State private var timer: Timer?
+    @State private var attempts: Int = 0
+    @State private var showDialog: Bool = false
 
 
     var body: some View {
@@ -70,6 +72,25 @@ struct ContentView: View {
 }
 
 .onAppear(perform: startTimer)
+
+    func checkAnswer(isPrime: Bool) {
+    if isPrime == isPrimeNumber(number) {
+        correctAnswers += 1
+    } else {
+        wrongAnswers += 1
+    }
+    attempts += 1
+    if attempts >= 10 {
+        showDialog = true
+    }
+    isCorrect = (isPrime == isPrimeNumber(number))
+}
+
+.alert(isPresented: $showDialog) {
+    Alert(title: Text("Results"), message: Text("Correct: \(correctAnswers), Wrong: \(wrongAnswers)"), dismissButton: .default(Text("OK")))
+}
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
