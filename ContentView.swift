@@ -47,3 +47,12 @@ VStack {
         .cornerRadius(10)
     }
 }
+func isPrimeNumber(_ n: Int) -> Bool {
+    if n <= 1 { return false }
+    if n == 2 { return true }
+    for i in 2..<Int(sqrt(Double(n))) + 1 {
+        if n % i == 0 { return false }
+    }
+    return true
+}
+
