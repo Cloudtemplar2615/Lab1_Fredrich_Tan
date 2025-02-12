@@ -31,7 +31,7 @@ VStack {
 
     HStack {
         Button("Prime") {
-            // Logic to be added later
+            self.checkAnswer(isPrime: true)
         }
         .padding()
         .background(Color.blue)
@@ -39,7 +39,7 @@ VStack {
         .cornerRadius(10)
 
         Button("Not Prime") {
-            // Logic to be added later
+            self.checkAnswer(isPrime: false)
         }
         .padding()
         .background(Color.red)
@@ -54,5 +54,10 @@ func isPrimeNumber(_ n: Int) -> Bool {
         if n % i == 0 { return false }
     }
     return true
+}
+@State private var isCorrect: Bool? = nil
+
+func checkAnswer(isPrime: Bool) {
+    isCorrect = (isPrime == isPrimeNumber(number))
 }
 
