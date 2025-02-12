@@ -89,6 +89,20 @@ struct ContentView: View {
 .alert(isPresented: $showDialog) {
     Alert(title: Text("Results"), message: Text("Correct: \(correctAnswers), Wrong: \(wrongAnswers)"), dismissButton: .default(Text("OK")))
 }
+    func resetGame() {
+    correctAnswers = 0
+    wrongAnswers = 0
+    attempts = 0
+    number = Int.random(in: 1...100)
+    isCorrect = nil
+    startTimer()
+}
+.alert(isPresented: $showDialog) {
+    Alert(title: Text("Results"), message: Text("Correct: \(correctAnswers), Wrong: \(wrongAnswers)"), dismissButton: .default(Text("OK"), action: {
+        self.resetGame()
+    }))
+}
+
 
 
 
