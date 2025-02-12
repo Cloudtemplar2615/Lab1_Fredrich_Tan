@@ -5,6 +5,8 @@ struct ContentView: View {
     @State private var isCorrect: Bool? = nil
     @State private var correctAnswers: Int = 0
     @State private var wrongAnswers: Int = 0
+    @State private var timer: Timer?
+
 
     var body: some View {
         VStack {
@@ -60,6 +62,14 @@ struct ContentView: View {
         isCorrect = (isPrime == isPrimeNumber(number))
     }
 }
+    func startTimer() {
+    timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
+        self.wrongAnswers += 1
+        self.isCorrect = false
+    }
+}
+
+.onAppear(perform: startTimer)
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
