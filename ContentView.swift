@@ -5,10 +5,9 @@ struct ContentView: View {
     @State private var isCorrect: Bool? = nil
     @State private var correctAnswers: Int = 0
     @State private var wrongAnswers: Int = 0
-    @State private var timer: Timer?
     @State private var attempts: Int = 0
     @State private var showDialog: Bool = false
-
+    @State private var timer: Timer?
 
     var body: some View {
         VStack {
@@ -42,6 +41,18 @@ struct ContentView: View {
                     .foregroundColor(correct ? .green : .red)
             }
         }
+        .alert(isPresented: $showDialog) {
+            Alert(
+                title: Text("Results"),
+                message: Text("Correct: \(correctAnswers)\nWrong: \(wrongAnswers)"),
+                dismissButton: .default(Text("OK"), action: {
+                    self.resetGame()
+                })
+            )
+        }
+        .onAppear {
+            startTimer()
+        }
     }
 
     // Function to Check if the Number is Prime
@@ -56,55 +67,55 @@ struct ContentView: View {
 
     // Function to Check User's Answer
     func checkAnswer(isPrime: Bool) {
+        timer?.invalidate()  // Stop the timer if user answers in time
         if isPrime == isPrimeNumber(number) {
             correctAnswers += 1
         } else {
             wrongAnswers += 1
         }
         isCorrect = (isPrime == isPrimeNumber(number))
+        attempts += 1
+
+        if attempts >= 10 {
+            showDialog = true
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.generateNewNumber()
+            }
+        }
     }
-}
+
+    // Function to Generate a New Number
+    func generateNewNumber() {
+        number = Int.random(in: 1...100)
+        isCorrect = nil
+        startTimer()
+    }
+
+    // Function to Start Timer
     func startTimer() {
-    timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
-        self.wrongAnswers += 1
-        self.isCorrect = false
-    }
-}
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
+            self.wrongAnswers += 1
+            self.isCorrect = false
+            self.attempts += 1
 
-.onAppear(perform: startTimer)
-
-    func checkAnswer(isPrime: Bool) {
-    if isPrime == isPrimeNumber(number) {
-        correctAnswers += 1
-    } else {
-        wrongAnswers += 1
+            if self.attempts >= 10 {
+                self.showDialog = true
+            } else {
+                self.generateNewNumber()
+            }
+        }
     }
-    attempts += 1
-    if attempts >= 10 {
-        showDialog = true
-    }
-    isCorrect = (isPrime == isPrimeNumber(number))
-}
 
-.alert(isPresented: $showDialog) {
-    Alert(title: Text("Results"), message: Text("Correct: \(correctAnswers), Wrong: \(wrongAnswers)"), dismissButton: .default(Text("OK")))
-}
+    // Function to Reset Game
     func resetGame() {
-    correctAnswers = 0
-    wrongAnswers = 0
-    attempts = 0
-    number = Int.random(in: 1...100)
-    isCorrect = nil
-    startTimer()
+        correctAnswers = 0
+        wrongAnswers = 0
+        attempts = 0
+        generateNewNumber()
+    }
 }
-.alert(isPresented: $showDialog) {
-    Alert(title: Text("Results"), message: Text("Correct: \(correctAnswers), Wrong: \(wrongAnswers)"), dismissButton: .default(Text("OK"), action: {
-        self.resetGame()
-    }))
-}
-
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
