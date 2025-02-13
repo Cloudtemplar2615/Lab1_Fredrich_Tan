@@ -83,11 +83,6 @@ struct ContentView: View {
 
     //function to check users answer
     func checkAnswer(isPrime: Bool) {
-        if let correct = isCorrect {
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(correct ? .success : .error)
-        }
-
         timer?.invalidate()  // stop the timer if user answers in time
         if isPrime == isPrimeNumber(number) {
             correctAnswers += 1
@@ -95,6 +90,12 @@ struct ContentView: View {
             wrongAnswers += 1
         }
         isCorrect = (isPrime == isPrimeNumber(number))
+        
+         if let correct = isCorrect {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(correct ? .success : .error)
+        }
+
         attempts += 1
 
         if attempts >= 10 {
