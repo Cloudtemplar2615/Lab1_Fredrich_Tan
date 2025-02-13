@@ -22,6 +22,8 @@ struct ContentView: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(10)
+                .shadow(color: .gray, radius: 5, x: 0, y: 2)
+                .padding(.horizontal, 20)
                 
 
 
@@ -31,6 +33,8 @@ struct ContentView: View {
                 .background(Color.red)
                 .foregroundColor(.white)
                 .cornerRadius(10)
+                .shadow(color: .gray, radius: 5, x: 0, y: 2)
+                .padding(.horizontal, 20)
                 
 
             }
