@@ -40,6 +40,8 @@ struct ContentView: View {
 
             }
 
+            
+
             //show result check mark or cross
             if let correct = isCorrect {
                 Image(systemName: correct ? "checkmark.circle" : "xmark.circle")
@@ -48,6 +50,8 @@ struct ContentView: View {
                     .foregroundColor(correct ? .green : .red)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(UIColor.systemGray6))
         .alert(isPresented: $showDialog) {
             Alert(
                 title: Text("Results"),
