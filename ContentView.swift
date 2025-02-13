@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 // state variable to hold the random number
 struct ContentView: View {
     @State private var number: Int = Int.random(in: 1...1000)
@@ -17,42 +18,35 @@ struct ContentView: View {
                 .padding(.bottom, 10)
 
             Text("\(number)")
-                .font(.largeTitle)
-                .padding()
                 .font(.system(size: 60, weight: .bold, design: .rounded))
+                .padding()
 
             HStack {
                 Button("Prime") {
                     self.checkAnswer(isPrime: true)
                 }
+                .padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .shadow(color: .gray, radius: 5, x: 0, y: 2)
-                .padding(.horizontal, 20)
-                
-
 
                 Button("Not Prime") {
                     self.checkAnswer(isPrime: false)
                 }
+                .padding()
                 .background(Color.red)
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .shadow(color: .gray, radius: 5, x: 0, y: 2)
-                .padding(.horizontal, 20)
-                
-
             }
-
-            
-
             //show result check mark or cross
             if let correct = isCorrect {
                 Image(systemName: correct ? "checkmark.circle" : "xmark.circle")
                     .resizable()
                     .frame(width: 50, height: 50)
                     .foregroundColor(correct ? .green : .red)
+                    .padding(.top, 20)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -70,7 +64,6 @@ struct ContentView: View {
             startTimer()
         }
     }
-
     //function to check if the number is prime
     func isPrimeNumber(_ n: Int) -> Bool {
         if n <= 1 { return false }
@@ -80,10 +73,9 @@ struct ContentView: View {
         }
         return true
     }
-
     //function to check users answer
     func checkAnswer(isPrime: Bool) {
-        timer?.invalidate()  // stop the timer if user answers in time
+        timer?.invalidate()
         if isPrime == isPrimeNumber(number) {
             correctAnswers += 1
         } else {
@@ -91,7 +83,7 @@ struct ContentView: View {
         }
         isCorrect = (isPrime == isPrimeNumber(number))
 
-         if let correct = isCorrect {
+        if let correct = isCorrect {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(correct ? .success : .error)
         }
@@ -106,14 +98,12 @@ struct ContentView: View {
             }
         }
     }
-
     //function to generate a new number
     func generateNewNumber() {
         number = Int.random(in: 1...1000)
         isCorrect = nil
         startTimer()
     }
-
     //function to start timer
     func startTimer() {
         timer?.invalidate()
@@ -129,7 +119,6 @@ struct ContentView: View {
             }
         }
     }
-
     //function to reset game
     func resetGame() {
         correctAnswers = 0
@@ -144,6 +133,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
 
 
 
