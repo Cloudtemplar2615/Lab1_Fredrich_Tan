@@ -90,7 +90,7 @@ struct ContentView: View {
             wrongAnswers += 1
         }
         isCorrect = (isPrime == isPrimeNumber(number))
-        
+
          if let correct = isCorrect {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(correct ? .success : .error)
@@ -109,7 +109,7 @@ struct ContentView: View {
 
     //function to generate a new number
     func generateNewNumber() {
-        number = Int.random(in: 1...100)
+        number = Int.random(in: 1...1000)
         isCorrect = nil
         startTimer()
     }
