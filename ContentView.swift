@@ -1,7 +1,7 @@
 import SwiftUI
 // state variable to hold the random number
 struct ContentView: View {
-    @State private var number: Int = Int.random(in: 1...100)
+    @State private var number: Int = Int.random(in: 1...1000)
     @State private var isCorrect: Bool? = nil
     @State private var correctAnswers: Int = 0
     @State private var wrongAnswers: Int = 0
