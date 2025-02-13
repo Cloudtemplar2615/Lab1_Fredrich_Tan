@@ -11,6 +11,11 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            Text("Prime Number Checker")
+                .font(.title)
+                .bold()
+                .padding(.bottom, 10)
+
             Text("\(number)")
                 .font(.largeTitle)
                 .padding()
