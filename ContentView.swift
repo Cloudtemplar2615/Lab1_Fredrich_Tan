@@ -1,5 +1,5 @@
 import SwiftUI
-
+// state variable to hold the random number
 struct ContentView: View {
     @State private var number: Int = Int.random(in: 1...100)
     @State private var isCorrect: Bool? = nil
@@ -19,21 +19,23 @@ struct ContentView: View {
                 Button("Prime") {
                     self.checkAnswer(isPrime: true)
                 }
-                .padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(10)
+                
+
 
                 Button("Not Prime") {
                     self.checkAnswer(isPrime: false)
                 }
-                .padding()
                 .background(Color.red)
                 .foregroundColor(.white)
                 .cornerRadius(10)
+                
+
             }
 
-            // Show Result (Checkmark or Cross)
+            //show result check mark or cross
             if let correct = isCorrect {
                 Image(systemName: correct ? "checkmark.circle" : "xmark.circle")
                     .resizable()
@@ -55,7 +57,7 @@ struct ContentView: View {
         }
     }
 
-    // Function to Check if the Number is Prime
+    //function to check if the number is prime
     func isPrimeNumber(_ n: Int) -> Bool {
         if n <= 1 { return false }
         if n == 2 { return true }
@@ -65,7 +67,7 @@ struct ContentView: View {
         return true
     }
 
-    // Function to Check User's Answer
+    //function to check users answer
     func checkAnswer(isPrime: Bool) {
         timer?.invalidate()  // Stop the timer if user answers in time
         if isPrime == isPrimeNumber(number) {
@@ -85,14 +87,14 @@ struct ContentView: View {
         }
     }
 
-    // Function to Generate a New Number
+    //function to generate a new number
     func generateNewNumber() {
         number = Int.random(in: 1...100)
         isCorrect = nil
         startTimer()
     }
 
-    // Function to Start Timer
+    //function to start timer
     func startTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
@@ -108,7 +110,7 @@ struct ContentView: View {
         }
     }
 
-    // Function to Reset Game
+    //function to reset game
     func resetGame() {
         correctAnswers = 0
         wrongAnswers = 0
@@ -122,4 +124,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
 
