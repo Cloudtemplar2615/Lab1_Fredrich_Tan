@@ -14,6 +14,7 @@ struct ContentView: View {
             Text("\(number)")
                 .font(.largeTitle)
                 .padding()
+                .font(.system(size: 60, weight: .bold, design: .rounded))
 
             HStack {
                 Button("Prime") {
